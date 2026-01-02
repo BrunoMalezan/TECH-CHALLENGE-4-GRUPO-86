@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import re
 from sklearn.preprocessing import FunctionTransformer
+import __main__
 
 # ==================================================
 # 0. DEFINIÇÕES OBRIGATÓRIAS (MODELO E DADOS)
@@ -37,6 +38,8 @@ def aplicar_serie_ordinais(dataframe):
         if col in df_.columns:
             df_[col] = df_[col].map(mapa).fillna(0)
     return df_
+
+setattr(__main__, "aplicar_serie_ordinais", aplicar_serie_ordinais)
 
 # ==================================================
 # 1. CONFIGURAÇÃO VISUAL
