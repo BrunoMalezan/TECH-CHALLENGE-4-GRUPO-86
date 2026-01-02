@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import cloudpickle
 import re
 from sklearn.preprocessing import FunctionTransformer
-import __main__
 
 # ==================================================
 # 0. DEFINIÇÕES OBRIGATÓRIAS (MODELO E DADOS)
@@ -38,8 +38,6 @@ def aplicar_serie_ordinais(dataframe):
         if col in df_.columns:
             df_[col] = df_[col].map(mapa).fillna(0)
     return df_
-
-setattr(__main__, "aplicar_serie_ordinais", aplicar_serie_ordinais)
 
 # ==================================================
 # 1. CONFIGURAÇÃO VISUAL
@@ -95,12 +93,13 @@ def formatar_telefone_visual(tel_limpo):
 # ==================================================
 @st.cache_resource
 def carregar_dados():
-    #try:
-        pipeline = joblib.load('pipeline_modelo_obesidade.pkl')
+    try:
+        with open('pipeline_modelo_obesidade.pkl', 'rb') as f:
+            pipeline = cloudpickle.load(f)
         metadados = joblib.load('preset_metadados_obesidade.pkl')
         return pipeline, metadados
-    #except:
-        #return None, None
+    except:
+        return None, None
 
 pipeline, metadados = carregar_dados()
 
