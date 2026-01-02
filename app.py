@@ -92,12 +92,12 @@ def formatar_telefone_visual(tel_limpo):
 # ==================================================
 @st.cache_resource
 def carregar_dados():
-    try:
+    #try:
         pipeline = joblib.load('pipeline_modelo_obesidade.pkl')
         metadados = joblib.load('preset_metadados_obesidade.pkl')
         return pipeline, metadados
-    except:
-        return None, None
+    #except:
+        #return None, None
 
 pipeline, metadados = carregar_dados()
 
