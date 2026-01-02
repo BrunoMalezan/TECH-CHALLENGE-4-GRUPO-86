@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import re
 from sklearn.preprocessing import FunctionTransformer
+from pathlib import Path
 
 # ==================================================
 # 0. DEFINIÇÕES OBRIGATÓRIAS (MODELO E DADOS)
@@ -90,11 +91,13 @@ def formatar_telefone_visual(tel_limpo):
 # ==================================================
 # 3. CARGA DE ARTEFATOS
 # ==================================================
+BASE_DIR = Path(__file__).resolve().parent
+
 @st.cache_resource
 def carregar_dados():
     #try:
-        pipeline = joblib.load('pipeline_modelo_obesidade.pkl')
-        metadados = joblib.load('preset_metadados_obesidade.pkl')
+        pipeline = joblib.load(BASE_DIR / "pipeline_modelo_obesidade.pkl")
+        metadados = joblib.load(BASE_DIR / "preset_metadados_obesidade.pkl")
         return pipeline, metadados
     #except:
         #return None, None
